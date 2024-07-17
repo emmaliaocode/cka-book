@@ -1,3 +1,7 @@
 # Table of contents
 
-* [Page](README.md)
+* [Introduction](README.md)
+
+## Core Concepts
+
+* [Cluster Architecture](core-concepts/cluster-architecture.md)
