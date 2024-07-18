@@ -8,7 +8,7 @@ Since a Kubernetes cluster hosts applications in "container" form, let's use the
 
 ### Master Node
 
-A master node (aka Control Plane Node) is like a control ship, which is responsible for:
+A master node (aka Control Plane Node) is like a _control ship_, which is responsible for:
 
 1. storing information about all the ships - ETCD
 2. identifying which cargo ship to load the container, like a crane - Scheduler
@@ -17,7 +17,13 @@ A master node (aka Control Plane Node) is like a control ship, which is responsi
 
 ### Worker Node
 
-A worker node is like a cargo ship, which carries the containers and is responsible for:
+A worker node is like a _cargo ship_, which carries the containers and is responsible for:
 
 1. liaising with the control ships and listen for the instructions, like a captain - Kubelet
 2. communicating between cargo ships, like a communication device - Kube Proxy
+
+{% hint style="info" %}
+Official Documents
+
+* [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
+{% endhint %}
