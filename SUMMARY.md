@@ -5,3 +5,4 @@
 ## Core Concepts
 
 * [Cluster Architecture](core-concepts/cluster-architecture.md)
+* [ETCD](core-concepts/etcd.md)
