@@ -62,7 +62,7 @@ A default client that come with ETCD is the `etcdctl` client that can be used fo
 ./etcdctl get key1
 ```
 
-### ETCD Versions History
+### Versions History
 
 Knowing how ETCD versions evolved can be helpful when exploring ETCD and related articles online.&#x20;
 
@@ -106,4 +106,85 @@ In `etcdctl v3.0` the command to set value is `etcdctl put`.
 ```sh
 export ETCDCTL_API=3
 ./etcdctl put key1 value1
+```
+
+## ETCD in Kubernetes
+
+The ETCD stores information of the Kubernetes cluster such as Nodes, Pods, Secrets, Roles, RoleBindings, etc. Every information printed with the `kubectl` command is from the ETCD server;  every change made is updated in the ETCD server.
+
+### Setup Cluster Manually
+
+If the Kubernetes cluster is setup manually, install ETCD from GitHub.
+
+```sh
+wget -q --https-only "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar-gz"
+```
+
+```sh
+# etcd.service 
+
+ExecStart=/usr/local/bin/etcd \
+--name ${ETCD_NAME} \
+--cert-file=/etc/etcd/kubernetes.pem \
+--key-file=/etc/etcd/kubernetes-key.pem \
+--peer-cert-file=/etc/etcd/kubernetes.pem \
+--peer-key-file=/etc/etcd/kubernetes-key.pem \
+--trusted-ca-file=/etc/etcd/ca.pem \
+--peer-trusted-ca-file=/etc/etcd/ca.pem \
+--peer-client-cert-auth \
+--client-cert-auth \
+--initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \
+--listen-peer-urls https://${INTERNAL_IP}:2380 \
+--listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \
+--advertise-client-urls https://$(INTERNAL_IP}:2379 \
+--initial-cluster-token etcd-cluster-0 \
+--initial-cluster controller-0=https://${CONTROLLER0_IP}:2380,controller-1=https://${CONTROLLER1_IP}:2380 \
+--initial-cluster-state new \
+--data-dir=/var/lib/etcd
+```
+
+* `--advertise-client-urls`: The URL that should be configured on the Kube-ApiServer when it tries to reach the ETCD server.
+* `--initial-cluster`: The different instances of the ETCD service in high availability (HA) environment.
+
+### Setup Cluster with Kubeadm
+
+If the Kubernetes cluster is setup with Kubeadm, then the ETCD server was deploy as a pod in `kube-system` Namespace.
+
+```sh
+kubectl get pods -n kube-system
+```
+
+```sh
+NAMESPACE     NAME                            READY  STATUS    RESTARTS   AGE
+kube-system   coredns-78fcdf6894-alezl        1/1    Running   0          1h
+kube-system   coredns-78fcdf6894-ep7oq        1/1    Running   0          1h
+kube-system   etcd-master                     1/1    Running   0          1h
+kube-system   kube-apiserver-master           1/1    Running   0          1h
+kube-system   kube-controller-manager-master  1/1    Running   0          1h
+kube-system   kube-proxy-ke3r6                1/1    Running   0          1h
+kube-system   kube-proxy-ejitw                1/1    Running   0          1h
+kube-system   kube-scheduler-master           1/1    Running   0          1h
+kube-system   weave-net-ifjkf                 2/2    Running   1          1h
+kube-system   weave-net-cerze                 2/2    Running   1          1h
+```
+
+List all keys stored by  run the `etcdctl` command.
+
+```sh
+kubectl exec etcd-master -n kube-system etcdctl get --prefix -keys-only
+```
+
+The Kubernetes stores data in the specific directory structure. The root directory is a registry, and under that are various Kubernetes constructions.
+
+```shell-session
+/registry/apiregistration.k8s.io/apiservices/v1.apps
+/registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io
+/registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io
+/registry/apiregistration.k8s.io/apiservices/v1.autoscaling
+/registry/apiregistration.k8s.io/apiservices/v1.batch
+/registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io
+/registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io
+/registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io
+/registrv/apiregistration.k8s.io/apiservices/vlbetal.admissionregistration.k8s.io
+...
 ```
