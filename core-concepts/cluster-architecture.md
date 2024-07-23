@@ -1,3 +1,17 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
 # Cluster Architecture
 
 The purpose of Kubernetes is to host applications in the form of containers to deploy the applications and enable communications between different services easily. Many things are involved in making these happen.
@@ -10,10 +24,10 @@ Since a Kubernetes cluster hosts applications in "container" form, let's use the
 
 A master node (aka Control Plane Node) is like a _control ship_, which is responsible for:
 
-1. storing information about all the ships - **ETCD**
+1. storing information about all the ships - [**ETCD**](etcd.md)
 2. identifying which cargo ship to load the container, like a crane - **Scheduler**
 3. monitoring and tracking the status of ships and containers, like various offices and departments - **Controller Manager**
-4. orchestrating all operations mentioned above - **API Server**
+4. orchestrating all operations mentioned above - [**Kube API Server**](api-server.md)
 
 ### Worker Node
 
