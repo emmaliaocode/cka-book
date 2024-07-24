@@ -126,7 +126,7 @@ export ETCDCTL_API=3
 
 The ETCD stores information of the Kubernetes cluster such as Nodes, Pods, Secrets, Roles, RoleBindings, etc. Every information printed with the `kubectl` command is from the ETCD server;  every change made is updated in the ETCD server.
 
-### Setup ETCD Manually
+### Setup Manually
 
 If the Kubernetes cluster is setup manually, install ETCD from GitHub.
 
@@ -160,9 +160,9 @@ ExecStart=/usr/local/bin/etcd \\
 * `--advertise-client-urls`: The URL that should be configured on the Kube-ApiServer when it tries to reach the ETCD server.
 * `--initial-cluster`: The different instances of the ETCD service in high availability (HA) environment.
 
-### Setup ETCD with Kubeadm
+### Setup with Kubeadm
 
-If the Kubernetes cluster is setup with Kubeadm, then the ETCD server was deploy as a pod in `kube-system` Namespace.
+If the Kubernetes cluster is set with Kubeadm, then the ETCD server was deployed as a pod in `kube-system` Namespace.
 
 ```sh
 kubectl get pods -n kube-system

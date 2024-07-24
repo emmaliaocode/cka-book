@@ -60,13 +60,13 @@ The image shows what exactly happened when creating a Pod.
 
 ## Install API Server
 
-### Setup API Server Manually
+### Setup Manually
 
 ```sh
 wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver
 ```
 
-View the API Server options.
+View the options.
 
 ```sh
 cat /etc/systemd/system/kube-apiserver.service
@@ -101,23 +101,11 @@ ExecStart=/us/local/bin/kube-apiserver \\
 
 * `--etcd-cafile`, `--etcd-certfile`, and `--etcd-keyfile`: Certification configs of ETCD.
 * `--kubelet-certificate-authority`, `--kubelet-client-key`, and `--kubelet-client-key`: Certification configs of Kubelet.
-* `--etcd-servers`: Config how the API Server connect to ETCD Server.
+* `--etcd-servers`: Config how the API Server connects to ETCD Server.
 
-View the running process.
+### Setup with Kubeadm
 
-```sh
-ps-aux | grep kube-apiserver
-```
-
-{% code overflow="wrap" %}
-```sh
-root    2333  2.3  17.4  382140  312344 ?     Ssl    15:46   1:22 kube-apiserver --authorization-mode=Node,RBAC --advertise-address=172.17.0.32 --allow-privileged=true --client-ca-file=/etc/kubernetes/pki/ca.crt --disable-admission-plugins=PersistentVolumeLabel --enable-admission-plugins=NodeRestriction --enable-bootstrap-token-auth=true --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key --etcd-servers=https://127.0.0.1:2379 --insecure-port=0 --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key --kubelet-preferred-address-types=InternalIP, ExternalIP,Hostname --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key--requestheader-allowed-names=front-proxy-client --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-group-headers=X-Remote-Group --requestheader-username-headers=X-Remote-User --secure-port=6443 --service-account-key-file=/etc/kubernetes/pki/sa.pub --service-cluster-ip-range=10.96.0.0/12 --tls-cert-file=/etc/kubernetes/pki/apiserver.crt --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
-```
-{% endcode %}
-
-### Setup API Server with Kubeadm
-
-If the Kubernetes cluster is setup with Kubeadm, then the API Server was deploy as a pod in `kube-system` Namespace.
+If the Kubernetes cluster is set with Kubeadm, then the API Server was deployed as a pod in `kube-system` Namespace.
 
 ```sh
 kubectl get pods -n kube-system
@@ -137,7 +125,7 @@ kube-system   weave-net-ifjkf                 2/2    Running   1          1h
 kube-system   weave-net-cerze                 2/2    Running   1          1h
 ```
 
-View the API Server options.
+View the options.
 
 ```sh
 cat /etc/kubernetes/manifests/kube-apiserver.yaml
@@ -170,3 +158,15 @@ cat /etc/kubernetes/manifests/kube-apiserver.yaml
     - --requestheader-group-headers=X-Remote-Group
     - --requestheader-username-headers=X-Remote-User
 </code></pre>
+
+View the running process.
+
+```sh
+ps-aux | grep kube-apiserver
+```
+
+{% code overflow="wrap" %}
+```sh
+root    2333  2.3  17.4  382140  312344 ?     Ssl    15:46   1:22 kube-apiserver --authorization-mode=Node,RBAC --advertise-address=172.17.0.32 --allow-privileged=true --client-ca-file=/etc/kubernetes/pki/ca.crt --disable-admission-plugins=PersistentVolumeLabel --enable-admission-plugins=NodeRestriction --enable-bootstrap-token-auth=true --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key --etcd-servers=https://127.0.0.1:2379 --insecure-port=0 --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key --kubelet-preferred-address-types=InternalIP, ExternalIP,Hostname --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key--requestheader-allowed-names=front-proxy-client --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-group-headers=X-Remote-Group --requestheader-username-headers=X-Remote-User --secure-port=6443 --service-account-key-file=/etc/kubernetes/pki/sa.pub --service-cluster-ip-range=10.96.0.0/12 --tls-cert-file=/etc/kubernetes/pki/apiserver.crt --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+```
+{% endcode %}
