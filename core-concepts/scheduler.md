@@ -25,7 +25,7 @@ For example, if the Scheduler needs to schedule a Pod that requires 10 CPUs, it 
 1. Filter Nodes with insufficient CPUs (less than 10 CPUs).
 2. Rank the Nodes to identify the best fit for the Pod (16 CPUs is greater than 12 CPUs).
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption><p>How Scheduler works?</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/scheduler.png" alt=""><figcaption><p>How Scheduler works?</p></figcaption></figure>
 
 ## Strategies for Scheduling
 
