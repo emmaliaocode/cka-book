@@ -14,7 +14,7 @@ layout:
 
 # Controller Manager
 
-The Controller Manager manages various controller in Kubernetes. A controller is a process that continuously monitors the state of various components within the system and brings the whole system to the desired functioning state.
+Controller Manager manages various controller in Kubernetes. A controller is a process that continuously monitors the state of various components within the system and brings the whole system to the desired functioning state.
 
 ## How Controller works?
 

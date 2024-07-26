@@ -14,7 +14,7 @@ layout:
 
 # Scheduler
 
-The Scheduler is responsible for scheduling Pods to Nodes. It only decides which Pod goes on which Node, and doesn't actually place Pod on the Node, which is the job of Kubelet.
+Scheduler is responsible for scheduling Pods to Nodes. It only decides which Pod goes on which Node, and doesn't actually place Pod on the Node, which is the job of Kubelet.
 
 ## How Scheduler Works?
 
