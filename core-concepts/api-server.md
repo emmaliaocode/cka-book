@@ -37,7 +37,7 @@ The image shows what exactly happened when retrieving the node information.
 4. API Server retrieves node information from the ETCD cluster.
 5. API Server responds node information back to the user.
 
-<figure><img src="../.gitbook/assets/api-server-get-node-info (1).png" alt=""><figcaption><p>What happens when getting node information?</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/api-server-get-node-info.png" alt=""><figcaption><p>What happens when getting node information?</p></figcaption></figure>
 
 ### Example: Creating a Pod
 

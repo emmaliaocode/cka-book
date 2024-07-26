@@ -22,7 +22,7 @@ Kube Proxy is a process that runs on each Node in the Kubernetes cluster. It is 
 2. Kube Proxy adds the Service and Pod pair IPs (`10.96.0.12` and `10.32.0.15`) to the iptable on each Node.
 3. The traffic route to the Service (`10.96.0.12`) will be directly forward to the Pod (`10.32.0.15`).
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>How Kube Proxy works?</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/kube-proxy.png" alt=""><figcaption><p>How Kube Proxy works?</p></figcaption></figure>
 
 ## Install Kube Proxy
 
